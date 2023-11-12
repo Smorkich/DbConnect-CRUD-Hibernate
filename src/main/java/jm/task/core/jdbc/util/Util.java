@@ -8,11 +8,8 @@ public class Util {
     private static final String url = "jdbc:mysql://localhost:3306/test";
     private static final String user = "root";
     private static final String password = "admin";
-    public static Connection getConnection() {
-        return connection;
-    }
 
-    public static void Connect() {
+    public static Connection Connect() {
         try {
             connection = DriverManager.getConnection(url, user, password);
             if (!connection.isClosed()) {
@@ -24,6 +21,17 @@ public class Util {
         } catch (SQLException ex) {
             System.out.println(ex.getMessage());
             System.out.println("Не удалось соединиться с БД");
+        }
+        return connection;
+    }
+    public static void connectionClose() {
+        try {
+            if (!connection.isClosed()) {
+                connection.close();
+                System.out.println("Соединение закрыто");
+            }
+        } catch (SQLException ex) {
+            System.out.println(ex.getMessage());
         }
     }
 }
