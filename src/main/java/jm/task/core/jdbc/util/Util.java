@@ -1,7 +1,4 @@
 package jm.task.core.jdbc.util;
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.SQLException;
 import jm.task.core.jdbc.model.User;
 import org.hibernate.boot.registry.StandardServiceRegistryBuilder;
 import org.hibernate.cfg.Configuration;
@@ -9,7 +6,6 @@ import org.hibernate.SessionFactory;
 import org.hibernate.service.ServiceRegistry;
 
 public class Util {
-    private static Connection connection;
     private static SessionFactory sessionFactory;
     private static final String url = "jdbc:mysql://localhost:3306/test";
     private static final String user = "root";
@@ -39,32 +35,6 @@ public class Util {
         if (sessionFactory != null) {
             sessionFactory.close();
             System.out.println("Соединение закрыто");
-        }
-    }
-
-    public static Connection Connect() {
-        try {
-            connection = DriverManager.getConnection(url, user, password);
-            if (!connection.isClosed()) {
-                System.out.println("Соединение установлено");
-            }
-            if (connection.isClosed()) {
-                System.out.println("Соединение закрыто");
-            }
-        } catch (SQLException ex) {
-            System.out.println(ex.getMessage());
-            System.out.println("Не удалось соединиться с БД");
-        }
-        return connection;
-    }
-    public static void connectionClose() {
-        try {
-            if (!connection.isClosed()) {
-                connection.close();
-                System.out.println("Соединение закрыто");
-            }
-        } catch (SQLException ex) {
-            System.out.println(ex.getMessage());
         }
     }
 }
